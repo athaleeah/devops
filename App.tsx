@@ -1,118 +1,100 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const SignInScreen = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const handleSignIn = () => {
+    console.log('Username:', username);
+    console.log('Password:', password);
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.welcomeText}>Welcome</Text>
+      </View>
+      <View style={styles.formContainer}>
+        <Text style={styles.label}>Username</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Masukan username anda"
+          onChangeText={(text) => setUsername(text)}
+          value={username}
+        />
+        <Text style={styles.label}>Password</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Masukan password anda"
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+          secureTextEntry={true}
+        />
+        <View style={styles.signInButtonContainer}>
+          <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
+            <Text style={styles.buttonText}>Sign In</Text>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+    paddingTop: 30, 
+    alignItems: 'flex-start',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  header: {
+    marginBottom: 30,
   },
-  sectionDescription: {
-    marginTop: 8,
+  welcomeText: {
+    fontSize: 32,
+    fontWeight: 'bold', 
+    color: 'black', 
+  },
+  formContainer: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    width: '100%',
+  },
+  label: {
     fontSize: 18,
-    fontWeight: '400',
+    marginBottom: 5,
+    fontWeight: 'bold', 
   },
-  highlight: {
-    fontWeight: '700',
+  input: {
+    width: '100%', 
+    height: 55,
+    borderWidth: 3,
+    borderColor: '#ccc',
+    borderRadius: 7,
+    paddingHorizontal: 10,
+    marginBottom: 20,
+  },
+  signInButtonContainer: {
+    width: '100%', 
+    alignItems: 'center', 
+  },
+  signInButton: {
+    backgroundColor: '#ff6600',
+    paddingVertical: 14,
+    paddingHorizontal: 40,
+    borderRadius: 10,
+    marginTop: 35,
+    alignItems: 'center',
+    width: '100%', 
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
-export default App;
+export default SignInScreen
